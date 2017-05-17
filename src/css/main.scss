@@ -1,0 +1,68 @@
+@import "mq";
+@import "fonts";
+@import "swiper";
+
+// Uncomment for embeds
+//@import "embed";
+
+// Uncomment for full screen (including immersive article main media)
+//@import "fullscreen";
+
+.element-atom,
+.interactive-atom {
+    margin: 0 !important;
+    height: 100vh;
+    overflow: hidden;
+}
+
+html, body {
+     background-color: #eaeaea;
+     overflow: initial;
+}
+
+#bannerandheader {
+	display: none;
+}
+
+.swiper-slide {
+	height: 100vh;
+	width: 100vw;
+	@include fs-textSans(3);
+	box-sizing: border-box;
+}
+
+.annotation-layer {
+	position: absolute;
+	top: 0;
+	z-index: 999;
+	height: 100%;
+	width: 100%;
+	transition: opacity 0.33s ease-in-out;
+}
+
+.background-slide {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+}
+
+.swiper-container {
+	background-color: #fff;
+	position: relative;
+}
+
+.slide-header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: #1A60A9;
+	width: 100%;
+	height: 36px;
+	color: #fff;
+	box-sizing: border-box;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 4px;
+}

@@ -12,7 +12,9 @@
 .interactive-atom {
     margin: 0 !important;
     height: 100vh;
-    overflow: hidden;
+    @include mq($until: desktop) {
+    	overflow: hidden;
+	}
 }
 
 html, body {
@@ -27,7 +29,7 @@ html, body {
 .swiper-slide {
 	height: 100vh;
 	width: 100vw;
-	@include fs-textSans(3);
+	@include fs-bodyCopy(2);
 	box-sizing: border-box;
 }
 
@@ -57,12 +59,40 @@ html, body {
 	position: absolute;
 	top: 0;
 	left: 0;
-	background-color: #1A60A9;
+	background-color: #cc2b12;
 	width: 100%;
-	height: 36px;
+	min-height: 36px;
 	color: #fff;
 	box-sizing: border-box;
 	padding-left: 10px;
 	padding-right: 10px;
-	padding-top: 4px;
+	padding-top: 6px;
+	padding-bottom: 12px;
+}
+
+.interactive-desktop {
+	display: none;
+	@include mq(desktop) {
+		display: block;
+	}
+}
+
+.interactive-mobile {
+	display: none;
+	@include mq($until: desktop) {
+		display: block;
+	}
+}
+
+.desktop-stack__graphic {
+	height: 400px;
+	width: 100%;
+	background-color: #333;
+}
+
+.swiper-slide--quote-card {
+	.slide-header {
+		height: 100%;
+		@include fs-headline(7);
+	}
 }

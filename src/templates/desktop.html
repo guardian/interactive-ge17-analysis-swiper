@@ -1,11 +1,15 @@
 <div class="interactive-desktop">
+	<div class="interactive-desktop__header">
+		<h1>{{spreadsheet.headline}}</h1>
+		<p>{{spreadsheet.standfirst}}</p>
+	</div>
 	{{#spreadsheet.stacks}}
-		<div class="desktop-stack">
-			<h1>{{id}}</h1>
+		<div class="interactive-desktop__stack">
+			<h2>{{id}}</h2>
 			{{#cards}}
 				<p>{{words}}</p>
 			{{/cards}}
-			<div class="desktop-stack__graphic"></div>
+			<div class="interactive-desktop__graphic has-graphic" data-graphic="{{base-graphic}}"></div>
 		</div>
 	{{/spreadsheet.stacks}}
 </div>

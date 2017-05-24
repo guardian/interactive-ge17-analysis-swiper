@@ -1,25 +1,35 @@
 <div class="interactive-mobile">
-	<div class="swiper-container swiper-container--vertical">
-	    <div class="swiper-wrapper">
-	        {{#spreadsheet.stacks}}
-	        <div class="swiper-slide">
-	            <div class="swiper-container swiper-container--horizontal">
-	                <div class="background-slide">
-	                </div>
-	                <div class="annotation-layer annotation-layer--2" style="opacity: 0;">
-	                </div>
-	                <div class="annotation-layer annotation-layer--3" style="opacity: 0;">
-	                </div>
-	                <div class="swiper-wrapper">
-	                	{{#cards}}
-	                    <div class="swiper-slide {{#quoteCard}}swiper-slide--quote-card{{/quoteCard}}">
-	                        <div class="slide-header">{{{words}}}</div>
-	                    </div>
-	                    {{/cards}}
-	                </div>
-	            </div>
-	        </div>
-	        {{/spreadsheet.stacks}}
-	    </div>
-	</div>
+    <div class="swiper-container swiper-container--vertical">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="swiper-container swiper-container--horizontal">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide swiper-slide--header-card" {{#graphic}}data-graphic="{{graphic}}" {{/graphic}}>
+                        	<h1>{{spreadsheet.headline}}</h1>
+                        	<p>{{spreadsheet.standfirst}}2</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{#spreadsheet.stacks}}
+            <div class="swiper-slide">
+                <div class="swiper-container swiper-container--horizontal">
+                    <div class="background-slide has-graphic" data-graphic="{{base-graphic}}"></div>
+                   	{{#cards}}
+                   		{{#graphic}}
+                    		<div class="annotation-layer has-graphic" style="opacity: 0;" data-graphic="{{graphic}}"></div>
+                   		{{/graphic}}
+                    {{/cards}}
+                    <div class="swiper-wrapper">
+                        {{#cards}}
+	                        <div class="swiper-slide {{#quoteCard}}swiper-slide--quote-card{{/quoteCard}}" {{#graphic}}data-graphic="{{graphic}}" {{/graphic}}>
+	                            <div class="slide-header">{{{words}}}</div>
+	                        </div>
+                        {{/cards}}
+                    </div>
+                </div>
+            </div>
+            {{/spreadsheet.stacks}}
+        </div>
+    </div>
 </div>

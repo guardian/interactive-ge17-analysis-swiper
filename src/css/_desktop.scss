@@ -1,0 +1,35 @@
+.interactive-desktop {
+	background-color: #fff;
+	margin: auto; 
+
+	@each $bp in (tablet, desktop, leftCol, wide) {
+        @include mq($bp) {
+            max-width: map-get($mq-breakpoints, $bp);
+        }
+    }
+}
+
+.interactive-desktop__graphic {
+	min-height: 400px;
+	width: 100%;
+	background-color: #fff;
+}
+
+
+.interactive-desktop__stack {
+	max-width: 860px;
+	margin-left: 240px; 
+
+	p {
+		max-width: 620px;
+	}
+}
+
+.interactive-desktop__header {
+	max-width: 620px;
+	margin-left: 240px;
+
+	h1 {
+		@include fs-headline(7);
+	}
+}

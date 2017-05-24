@@ -1,6 +1,8 @@
 @import "mq";
 @import "fonts";
 @import "swiper";
+@import "mobile";
+@import "desktop";
 
 // Uncomment for embeds
 //@import "embed";
@@ -22,54 +24,6 @@ html, body {
      overflow: initial;
 }
 
-#bannerandheader {
-	display: none;
-}
-
-.swiper-slide {
-	height: 100vh;
-	width: 100vw;
-	@include fs-bodyCopy(2);
-	box-sizing: border-box;
-}
-
-.annotation-layer {
-	position: absolute;
-	top: 0;
-	z-index: 999;
-	height: 100%;
-	width: 100%;
-	transition: opacity 0.33s ease-in-out;
-}
-
-.background-slide {
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 100%;
-	width: 100%;
-}
-
-.swiper-container {
-	background-color: #fff;
-	position: relative;
-}
-
-.slide-header {
-	position: absolute;
-	top: 0;
-	left: 0;
-	background-color: #cc2b12;
-	width: 100%;
-	min-height: 36px;
-	color: #fff;
-	box-sizing: border-box;
-	padding-left: 10px;
-	padding-right: 10px;
-	padding-top: 6px;
-	padding-bottom: 12px;
-}
-
 .interactive-desktop {
 	display: none;
 	@include mq(desktop) {
@@ -81,18 +35,5 @@ html, body {
 	display: none;
 	@include mq($until: desktop) {
 		display: block;
-	}
-}
-
-.desktop-stack__graphic {
-	height: 400px;
-	width: 100%;
-	background-color: #333;
-}
-
-.swiper-slide--quote-card {
-	.slide-header {
-		height: 100%;
-		@include fs-headline(7);
 	}
 }

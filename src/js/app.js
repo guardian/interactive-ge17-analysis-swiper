@@ -1,5 +1,12 @@
 import xr from 'xr'
 import Swiper from 'swiper'
+import animatedScrollTo from 'animated-scroll-to'
+
+
+const $ = sel => document.querySelector(sel)
+const vh = $('#bannerandheader').scrollHeight + $('.interactive-mask').scrollHeight - 4
+
+let pastFirst = false;
 
 function initSwiper() {
     var swipers = [];
@@ -12,6 +19,7 @@ function initSwiper() {
         spaceBetween: 0,
         pagination: ".pagination",
         direction: "vertical",
+        touchMoveStopPropagation : false
     });
 
     for (var s = 0; s < cardStacks.length; s++) {
@@ -56,3 +64,7 @@ function loadGraphics() {
 
 initSwiper();
 loadGraphics();
+
+document.addEventListener('touchend', (e) => {
+    if(!pastFirst) { pastFirst = true ; animatedScrollTo(vh); }
+})

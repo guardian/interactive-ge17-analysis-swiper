@@ -15,7 +15,7 @@
     margin: 0 !important;
     height: 100vh;
     @include mq($until: desktop) {
-    	overflow: hidden;
+    	//overflow: hidden;
 	}
 }
 

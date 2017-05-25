@@ -1,5 +1,17 @@
 #bannerandheader {
-	display: none;
+	//display: none;
+}
+
+.interactive-mask {
+	height: 100vh;
+	width: 100vw;
+	color: #00456e;
+	padding: 16px 0;
+	background-color: rgba(75,198,223,0.4);
+
+	& .interactive-mask--header {
+		text-align: center;
+	}
 }
 
 .swiper-slide {

@@ -10,6 +10,9 @@ import cheerio from 'cheerio'
 export async function render(assetPath) {
     cleanGraphics(assetPath);
     let spreadsheet = JSON.parse(await rp("https://interactive.guim.co.uk/docsdata-test/1_YBBoPBQE4sBV5rCxh8AhaLNiU1kPlBY30qCkVmZZWE.json"));
+    
+    spreadsheet = cleanSpreadsheet(spreadsheet);
+
     var renderData = {
         "spreadsheet": spreadsheet
     };
@@ -37,4 +40,25 @@ function cleanGraphics(assetPath) {
             });
         }
     });
+}
+
+function cleanSpreadsheet(spreadsheet) {
+    //add end cards
+
+    spreadsheet.stacks.map((stack,i) => {
+        stack.cards.unshift({
+            "headerCard": true,
+            "words": stack.headline
+        });
+
+        let nextStack = spreadsheet.stacks[i+1];
+        if(nextStack) {
+            stack.cards.push({
+                "endCard": true,
+                "words": "Next: " + nextStack.headline
+            });
+        }
+        return stack;
+    });
+    return spreadsheet;
 }

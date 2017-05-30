@@ -11,8 +11,15 @@
 }
 
 .interactive-desktop__stack-container {
-	max-width: 860px;
-	margin-left: 240px;
+	@include mq(leftCol) {
+		max-width: 860px;
+		margin-left: 140px;
+	}
+
+	@include mq(wide) {
+		max-width: 860px;
+		margin-left: 240px;
+	}
 }
 
 .interactive-desktop__graphic {
@@ -24,11 +31,22 @@
 
 .interactive-desktop__stack {
 	overflow: hidden;
+
+	h2 {
+		@include fs-header(5);
+	}
 }
 
 .interactive-desktop__header {
 	max-width: 620px;
-	margin-left: 240px;
+
+	@include mq(leftCol) {
+		margin-left: 140px;
+	}
+
+	@include mq(wide) {
+		margin-left: 240px;
+	}
 
 	h1 {
 		@include fs-headline(7);
@@ -36,7 +54,7 @@
 }
 
 .annotation-layer--desktop {
-	margin-right: 20px;
+	margin-right: 20px; 
 	margin-bottom: 24px;
 	border-radius: 10px;
 	padding: 6px 5px;
@@ -69,4 +87,12 @@
 	// 	padding-left: 10px;
 	// 	padding-right: 10px;
 	// }
+}
+
+.header-block {
+	clear: both;
+
+	h3 {
+		@include fs-header(2);
+	}
 }

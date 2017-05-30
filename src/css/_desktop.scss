@@ -7,6 +7,12 @@
             max-width: map-get($mq-breakpoints, $bp);
         }
     }
+    overflow: hidden;
+}
+
+.interactive-desktop__stack-container {
+	max-width: 860px;
+	margin-left: 240px;
 }
 
 .interactive-desktop__graphic {
@@ -17,12 +23,7 @@
 
 
 .interactive-desktop__stack {
-	max-width: 860px;
-	margin-left: 240px; 
-
-	p {
-		max-width: 620px;
-	}
+	overflow: hidden;
 }
 
 .interactive-desktop__header {
@@ -32,4 +33,40 @@
 	h1 {
 		@include fs-headline(7);
 	}
+}
+
+.annotation-layer--desktop {
+	margin-right: 20px;
+	margin-bottom: 24px;
+	border-radius: 10px;
+	padding: 6px 5px;
+	overflow: hidden;
+	// box-sizing: border-box;
+	border: 1px solid #dcdcdc;
+	// box-shadow: 0px 0px 43px -13px rgba(0,0,0,0.3);
+}
+
+.card {
+	position: relative;
+	float: left;
+
+	.card-words {
+		position: absolute;
+		top: 6px;
+		z-index: 999;
+		@include fs-textSans(3);
+		font-weight: bold;
+		box-sizing: border-box;
+		padding-left: 10px;
+		padding-right: 10px;
+		width: calc(100% - 20px);
+	}
+	// p {
+	// 	position: absolute;
+	// 	top: 6px;
+	// 	width: 100%;
+	// 	left: 0;
+	// 	padding-left: 10px;
+	// 	padding-right: 10px;
+	// }
 }

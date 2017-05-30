@@ -24,7 +24,6 @@ function cleanGraphics(assetPath) {
         if (f.substr(f.length - 4) === "html") {
             let file = fs.readFileSync("./src/assets/" + f, "utf8");
             let $ = cheerio.load(file);
-            console.log($.html(".g-artboard"));
 
             let artboardHtml = $.html(".g-artboard");
 

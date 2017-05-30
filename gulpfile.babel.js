@@ -24,10 +24,10 @@ const browser = browserSync.create();
 const buildDir = '.build';
 const cdnUrl = 'https://interactive.guim.co.uk';
 
-const isDeploy = gutil.env._.indexOf('deploy') > -1;
+const isDeploy = gutil.env._.indexOf('deploy') > -1 || gutil.env._.indexOf('deploylive') > -1 || gutil.env._.indexOf('deploypreview') > -1;
 
 const version = `v/${Date.now()}`;
-const s3Path = `atoms-CODE/${config.path}`;
+const s3Path = `atoms/${config.path}`;
 const s3VersionPath = `${s3Path}/${version}`;
 const path = isDeploy ? `${cdnUrl}/${s3VersionPath}` : '.';
 
@@ -243,7 +243,7 @@ gulp.task('url', () => {
 
 gulp.task('log', () => {
     function log(type) {
-        let url = `${cdnUrl}/atoms-CODE/${config.path}/${type}.log?${Date.now()}`;
+        let url = `${cdnUrl}/atoms/${config.path}/${type}.log?${Date.now()}`;
         return rp(url).then(log => {
             gutil.log(gutil.colors.green(`Got ${type} log:`));
             console.log(log);

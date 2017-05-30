@@ -3,13 +3,19 @@
 		<h1>{{spreadsheet.headline}}</h1>
 		<p>{{spreadsheet.standfirst}}</p>
 	</div>
-	{{#spreadsheet.stacks}}
-		<div class="interactive-desktop__stack">
-			<h2>{{id}}</h2>
-			{{#cards}}
-				<p>{{words}}</p>
-			{{/cards}}
-			<div class="interactive-desktop__graphic has-graphic" data-graphic="{{base-graphic}}"></div>
-		</div>
-	{{/spreadsheet.stacks}}
+	<div class="interactive-desktop__stack-container">
+		{{#spreadsheet.stacks}}
+			<div class="interactive-desktop__stack">
+				<h2>{{id}}</h2>
+				{{#cards}}
+					<div class="card">
+		           		{{#graphic}}
+		           			<p class="card-words">{{words}}</p>
+		            		<div class="annotation-layer annotation-layer--desktop has-graphic" style="opacity: 1;" data-graphic="{{graphic}}"></div>
+		           		{{/graphic}}
+	           		</div>
+	            {{/cards}}
+			</div>
+		{{/spreadsheet.stacks}}
+	</div>
 </div>

@@ -1,6 +1,9 @@
 import xr from 'xr'
 import Swiper from 'swiper'
 
+let isMobile = document.querySelector(".interactive-atom").clientWidth < 980;
+let breakpoint = "375";
+
 function initSwiper() {
     var swipers = [];
     var cardStacks = document.querySelectorAll('.swiper-container--horizontal');
@@ -30,35 +33,72 @@ function initSwiper() {
             .on("onSlideChangeStart", (swipe) => {
 
                 let newAnnotation = document.querySelector(".annotation-layer[data-graphic=" + swipe.slides[swipe.snapIndex].getAttribute("data-graphic") + "]")
-                let annotations = document.querySelectorAll(".annotation-layer");
+                let annotations = document.querySelectorAll(".swiper-slide-active .annotation-layer");
 
                 for (var i = 0; i < annotations.length; i++) {
-                    if(annotations[i]) {
+                    if (annotations[i]) {
                         annotations[i].style.opacity = "0";
                     }
                 }
 
-                if(newAnnotation) {
+                if (newAnnotation) {
                     newAnnotation.style.opacity = "1";
                 }
             });
     }
+
+    loadGraphics(swiperVertical);
 }
 
-function loadGraphics() {
-    let allLayers = document.querySelectorAll(".has-graphic");
+function loadGraphics(swiperVertical) {
+    let stacks = document.querySelectorAll(".swiper-slide--vertical");
 
-    let breakpoint = "375";
+    if (isMobile) {
+        addSomePadding();
+        loadCardsMobile();
 
-    for(let i = 0; i < allLayers.length; i++) {
-        let el = allLayers[i];
+        swiperVertical.on("onSlideChangeEnd", (swipe) => {
+            loadCardsMobile();
+        });
+    } else {
+        let cardsToLoad = document.querySelectorAll(".interactive-desktop .has-graphic");
+        for (let i = 0; i < cardsToLoad.length; i++) {
+            loadCard(cardsToLoad[i], breakpoint);
+        }
+
+    }
+}
+
+function loadCard(el, breakpoint) {
+    if (el.getAttribute("loaded") !== "yes") {
         let graphicId = el.getAttribute("data-graphic");
 
-        xr.get(`<%= path %>/graphics/${graphicId}${breakpoint}.html`, {}, {"raw": true}).then((d) => {
+        xr.get(`<%= path %>/graphics/${graphicId}${breakpoint}.html`, {}, {
+            "raw": true
+        }).then((d) => {
             el.innerHTML = d.response;
+            el.setAttribute("loaded", "yes");
         });
     }
 }
 
+function loadCardsMobile() {
+    let cardsToLoad = document.querySelectorAll(".swiper-slide-active .has-graphic, .swiper-slide-next .has-graphic");
+
+    for (let i = 0; i < cardsToLoad.length; i++) {
+        loadCard(cardsToLoad[i], breakpoint)
+    }
+}
+
+function addSomePadding() {
+    //change 355 to breakpoint
+    let wastedHeight = Math.min(Math.round(window.innerHeight - 355*(4/3)), 120);
+    let stylesToAppend = `.background-slide { top: ${wastedHeight}px !important;} .annotation-layer { top: ${wastedHeight}px !important;}`;
+
+    var ss = document.createElement("style");
+    let ssEl = document.head.appendChild(ss);
+
+    ssEl.innerHTML = stylesToAppend;
+}
+
 initSwiper();
-loadGraphics();

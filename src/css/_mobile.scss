@@ -59,16 +59,18 @@
 	padding-bottom: 6px;
 	// border: 1px solid #f6f6f6;
 	box-shadow: -1px -1px 5px -1px rgba(0, 0, 0, 0.1), 1px 2px 2px 0px rgba(0, 0, 0, 0.1);
-	background-color: #fff;
-	@include fs-textSans(3);
+	background-color: rgba(255,255,255,0.9);
+	// @include fs-textSans(3);
+	@include fs-headline(2); 
+	line-height: 24px;
+	// font-size: 16px !important;
 	// -webkit-backdrop-filter: blur(10px);
 
-	// @supports (-webkit-backdrop-filter: blur(10px)) {
-	// 	-webkit-backdrop-filter: blur(10px);
-	// 	background-color: transparent;
-	// }
+	@supports (-webkit-backdrop-filter: blur(10px)) {
+		-webkit-backdrop-filter: blur(3px);
+		background-color: rgba(255,255,255,0.25);	}
 
-	font-weight: bold;
+	// font-weight: 500;
 	color: #000;
 }
 

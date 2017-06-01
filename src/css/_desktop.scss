@@ -54,29 +54,28 @@
 }
 
 .annotation-layer--desktop {
-	margin-right: 20px; 
-	margin-bottom: 24px;
-	border-radius: 10px;
-	padding: 6px 5px;
-	overflow: hidden;
-	// box-sizing: border-box;
-	border: 1px solid #dcdcdc;
 	// box-shadow: 0px 0px 43px -13px rgba(0,0,0,0.3);
 }
 
 .card {
 	position: relative;
 	float: left;
+	margin-right: 20px; 
+	margin-bottom: 24px;
+	padding: 6px 5px;
+	overflow: hidden;
+	// box-sizing: border-box;
+	border: 1px solid #dcdcdc;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 72px;
 
 	.card-words {
 		position: absolute;
 		top: 6px;
 		z-index: 999;
-		@include fs-textSans(3);
-		font-weight: bold;
+		@include fs-bodyCopy(2);
 		box-sizing: border-box;
-		padding-left: 10px;
-		padding-right: 10px;
 		width: calc(100% - 20px);
 	}
 	// p {
@@ -95,4 +94,10 @@
 	h3 {
 		@include fs-header(2);
 	}
+}
+
+.base-layer {
+	position: absolute;
+    top: 72px;
+    left: 10px;
 }

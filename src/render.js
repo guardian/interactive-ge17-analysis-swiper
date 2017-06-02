@@ -8,10 +8,11 @@ import mkdirp from 'mkdirp'
 import cheerio from 'cheerio'
 
 export async function render(assetPath) {
-    cleanGraphics(assetPath);
     let spreadsheet = JSON.parse(await rp("https://interactive.guim.co.uk/docsdata-test/1_YBBoPBQE4sBV5rCxh8AhaLNiU1kPlBY30qCkVmZZWE.json"));
     
     spreadsheet = cleanSpreadsheet(spreadsheet);
+
+    cleanGraphics(assetPath, spreadsheet);
 
     var renderData = {
         "spreadsheet": spreadsheet
@@ -20,8 +21,9 @@ export async function render(assetPath) {
     return Mustache.render(mobileTemplate, renderData) + Mustache.render(desktopTemplate, renderData);
 }
 
-function cleanGraphics(assetPath) {
+function cleanGraphics(assetPath, spreadsheet) {
     let files = fs.readdirSync("./src/assets");
+    let annotations = spreadsheet.annotations;
 
     files.forEach((f) => {
         if (f.substr(f.length - 4) === "html") {
@@ -32,7 +34,9 @@ function cleanGraphics(assetPath) {
 
             let html = $.html($(".ai2html").html(artboardHtml));
 
-            let cleanedHtml = html.replace(/background-image:url\(/g, "background-image:url(" + assetPath + "/assets/");
+            let cleanedHtml = html.replace(/background-image:url\(/g, "background-image:url(" + assetPath + "/assets/").replace(/\[\[/g, "{{").replace(/\]\]/g, "}}");
+            
+            cleanedHtml = Mustache.render(cleanedHtml, annotations);
 
             mkdirp("./.build/graphics/", function(err) {
                 if (err) console.error(err)

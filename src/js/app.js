@@ -1,8 +1,9 @@
 import xr from 'xr'
 import Swiper from 'swiper'
 
-let isMobile = document.querySelector(".interactive-atom").clientWidth < 980;
-let breakpoint = "375";
+let width = document.querySelector(".interactive-atom").clientWidth;
+let isMobile = width < 980;
+let breakpoint = (width < 355) ? "300" : "355";
 
 function initSwiper() {
     var swipers = [];

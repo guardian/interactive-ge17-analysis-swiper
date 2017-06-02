@@ -1,5 +1,7 @@
-#bannerandheader {
-	display: none;
+@include mq($until: desktop) {
+	#bannerandheader {
+		display: none;
+	}
 }
 
 .swiper-slide {

@@ -1,29 +1,26 @@
 <div class="interactive-desktop">
-	<div class="interactive-desktop__header">
-		<h1>{{spreadsheet.headline}}</h1>
-		<p>{{spreadsheet.standfirst}}</p>
-	</div>
-	<div class="interactive-desktop__stack-container">
-		{{#spreadsheet.stacks}}
-			<div class="interactive-desktop__stack">
-				<h2>{{headline}}</h2>
-				{{#cards}}
-					{{#quoteCard}}
-						<div class="header-block">
-							<h3>{{words}}</h3>
-						</div>
-					{{/quoteCard}}
-					{{^quoteCard}}
-		           		{{#graphic}}
-		           		<div class="card">
-		           			<div class="base-layer has-graphic" data-graphic="{{base-graphic}}"></div>
-		           			<p class="card-words">{{words}}</p>
-		            		<div class="annotation-layer annotation-layer--desktop has-graphic" style="opacity: 1;" data-graphic="{{graphic}}"></div>
-		            	</div>
-		           		{{/graphic}}
-		           	{{/quoteCard}}
-	            {{/cards}}
-			</div>
-		{{/spreadsheet.stacks}}
-	</div>
+    <div class="interactive-desktop__header">
+        <div class="interactive-desktop__header-inner">
+        	<span class="tag">General Election 2017</span>
+            <h1>{{spreadsheet.headline}}</h1>
+            <p>{{spreadsheet.standfirst}}</p>
+        </div>
+    </div>
+    <div class="interactive-desktop__stack-container">
+        {{#spreadsheet.stacks}}
+        <div class="interactive-desktop__stack">
+            <h2>{{headline}}</h2> {{#cards}} {{#quoteCard}}
+            <div class="header-block">
+                <h3>{{words}}</h3>
+            </div>
+            {{/quoteCard}} {{^quoteCard}} {{#graphic}}
+            <div class="card">
+                <div class="base-layer has-graphic" data-graphic="{{base-graphic}}"></div>
+                <p class="card-words">{{words}}</p>
+                <div class="annotation-layer annotation-layer--desktop has-graphic" style="opacity: 1;" data-graphic="{{graphic}}"></div>
+            </div>
+            {{/graphic}} {{/quoteCard}} {{/cards}}
+        </div>
+        {{/spreadsheet.stacks}}
+    </div>
 </div>

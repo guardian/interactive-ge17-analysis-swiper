@@ -1,9 +1,37 @@
 import xr from 'xr'
 import Swiper from 'swiper'
+import animatedScrollTo from 'animated-scroll-to'
+
+const $ = sel => document.querySelector(sel)
+const $$ = sel => Array.from(document.querySelectorAll(sel))
+
+function getCoords(elem) { // crossbrowser version
+    var box = elem.getBoundingClientRect();
+
+    var body = document.body;
+    var docEl = document.documentElement;
+
+    var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
+    var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
+
+    var clientTop = docEl.clientTop || body.clientTop || 0;
+    var clientLeft = docEl.clientLeft || body.clientLeft || 0;
+
+    var top  = box.top +  scrollTop - clientTop;
+    var left = box.left + scrollLeft - clientLeft;
+
+    return { top: Math.round(top), left: Math.round(left) };
+}
 
 let width = document.querySelector(".interactive-atom").clientWidth;
 let isMobile = width < 980;
 let breakpoint = (width < 355) ? "300" : "355";
+
+const vh = getCoords($('.swiper-container')).top
+
+console.log(vh)
+
+let pastFirst = false;
 
 function initSwiper() {
     var swipers = [];
@@ -44,6 +72,22 @@ function initSwiper() {
 
                 if (newAnnotation) {
                     newAnnotation.style.opacity = "1";
+                }
+            })
+            .on("onTouchStart", swipe => {
+
+                const el = $('.swiper-slide-active .after-el')
+                if(el) {
+                    el.classList.add('after-el--transparent')
+                    el.classList.remove('after-el--filled')
+                }
+
+            })
+            .on("onTouchEnd", swipe => {
+                 const el = $('.swiper-slide-active .after-el')
+                 if(el) {
+                    el.classList.remove('after-el--transparent')
+                    el.classList.add('after-el--filled')
                 }
             });
     }
@@ -100,5 +144,14 @@ function addSomePadding() {
 
     ssEl.innerHTML = stylesToAppend;
 }
+
+document.addEventListener('touchend', (e) => {
+
+    const remaining = vh - $('body').scrollTop
+
+    console.log(remaining)
+
+    if(!pastFirst) { pastFirst = true ; animatedScrollTo(remaining); }
+})
 
 initSwiper();

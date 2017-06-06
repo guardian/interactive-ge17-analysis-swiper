@@ -28,11 +28,10 @@
 
 
 .after-el {
-	position: absolute;
+		position: absolute;
 		height: 60px;
 		width: 30px;
 		display: block;
-		background-color: currentColor;
 		top: 50%;
 		top: calc(50% - 30px);
 		// right: -30px;
@@ -373,6 +372,7 @@
 @each $color in $colors {
     .color--#{nth($color, 1)} {
     	color: nth($color, 2);
+
         .slide-header {
         	background-color: nth($color, 2) !important;
         }
@@ -380,6 +380,10 @@
         .swiper-slide--header-card::after {
     		color: nth($color, 2);
     	}
+    }
+
+    .after-el--#{nth($color, 1)} {
+        background-color: nth($color, 2) !important;
     }
 
     .next-color--#{nth($color, 1)} {

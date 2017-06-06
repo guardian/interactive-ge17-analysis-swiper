@@ -50,6 +50,8 @@ function cleanSpreadsheet(spreadsheet) {
     //add end cards
 
     spreadsheet.stacks.map((stack,i) => {
+        stack.number = i + 1;
+
         stack.cards.unshift({
             "headerCard": true,
             "words": stack.headline
@@ -57,10 +59,13 @@ function cleanSpreadsheet(spreadsheet) {
 
         let nextStack = spreadsheet.stacks[i+1];
         if(nextStack) {
-            stack.cards.push({
-                "endCard": true,
-                "words": "Next: " + nextStack.headline
-            });
+            stack.nextStack = {
+                "words": nextStack.headline
+            };
+
+            stack.cards[stack.cards.length - 1].endCard = true;
+
+            stack.nextColor = nextStack.color;
         }
         return stack;
     });

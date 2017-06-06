@@ -1,3 +1,13 @@
+$lab: #E42729;
+$con: #005689;
+$ukip: #7D0068;
+$otherOne: #484f53;
+
+$colors: 	lab $lab,
+			con $con,
+			ukip $ukip,
+			otherOne $otherOne;
+
 @import "mq";
 @import "fonts";
 @import "swiper";
@@ -37,3 +47,4 @@ html, body {
 		display: block;
 	}
 }
+

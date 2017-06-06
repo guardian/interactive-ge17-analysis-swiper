@@ -92,8 +92,7 @@ function loadCardsMobile() {
 }
 
 function addSomePadding() {
-    //change 355 to breakpoint
-    let wastedHeight = Math.min(Math.round(window.innerHeight - 355*(4/3)), 120);
+    let wastedHeight = Math.min(Math.round((window.innerHeight - 32) - breakpoint*(4/3)), 120);
     let stylesToAppend = `.background-slide { top: ${wastedHeight}px !important;} .annotation-layer { top: ${wastedHeight}px !important;}`;
 
     var ss = document.createElement("style");

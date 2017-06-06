@@ -24,6 +24,10 @@
 
 .interactive-desktop__stack {
 	overflow: hidden;
+	@include mq(tablet) {
+    	margin-left: 20px;
+    }
+
 	@include mq(leftCol) {
 		max-width: 860px;
 		margin-left: 140px;
@@ -104,6 +108,10 @@
     box-sizing: border-box;
     overflow: hidden;
 
+    @include mq(tablet) {
+    	padding-left: 20px;
+    }
+
 	@include mq(leftCol) {
 		padding-left: 140px;
 	}
@@ -165,3 +173,4 @@
     top: 96px;
     left: 10px;
 }
+

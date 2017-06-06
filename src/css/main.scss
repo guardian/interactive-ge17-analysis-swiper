@@ -25,7 +25,7 @@ $colors: 	lab $lab,
     margin: 0 !important;
     height: 100vh;
     @include mq($until: tablet) {
-    	overflow: hidden;
+    	//overflow: hidden;
 	}
 }
 

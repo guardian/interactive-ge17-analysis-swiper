@@ -97,6 +97,10 @@
 .swiper-container {
 	background-color: #fff;
 	position: relative;
+
+	&.swiper-container--vertical {
+		overflow: hidden;
+	}
 }
 
 .slide-header {

@@ -17,10 +17,13 @@ function getCoords(elem) { // crossbrowser version
     var clientTop = docEl.clientTop || body.clientTop || 0;
     var clientLeft = docEl.clientLeft || body.clientLeft || 0;
 
-    var top  = box.top +  scrollTop - clientTop;
+    var top = box.top + scrollTop - clientTop;
     var left = box.left + scrollLeft - clientLeft;
 
-    return { top: Math.round(top), left: Math.round(left) };
+    return {
+        top: Math.round(top),
+        left: Math.round(left)
+    };
 }
 
 let width = document.querySelector(".interactive-atom").clientWidth;
@@ -77,15 +80,15 @@ function initSwiper() {
             .on("onTouchStart", swipe => {
 
                 const el = $('.swiper-slide-active .after-el')
-                if(el) {
+                if (el) {
                     el.classList.add('after-el--transparent')
                     el.classList.remove('after-el--filled')
                 }
 
             })
             .on("onTouchEnd", swipe => {
-                 const el = $('.swiper-slide-active .after-el')
-                 if(el) {
+                const el = $('.swiper-slide-active .after-el')
+                if (el) {
                     el.classList.remove('after-el--transparent')
                     el.classList.add('after-el--filled')
                 }
@@ -136,7 +139,7 @@ function loadCardsMobile() {
 }
 
 function addSomePadding() {
-    let wastedHeight = Math.min(Math.round((window.innerHeight - 32) - breakpoint*(4/3)), 120);
+    let wastedHeight = Math.min(Math.round((window.innerHeight - 32) - breakpoint * (4 / 3)), 120);
     let stylesToAppend = `.background-slide { top: ${wastedHeight}px !important;} .annotation-layer { top: ${wastedHeight}px !important;}`;
 
     var ss = document.createElement("style");
@@ -146,12 +149,26 @@ function addSomePadding() {
 }
 
 document.addEventListener('touchend', (e) => {
-
-    const remaining = vh - $('body').scrollTop
-
-    console.log(remaining)
-
-    if(!pastFirst) { pastFirst = true ; animatedScrollTo(remaining); }
+    doTheScroll();
 })
+
+function doTheScroll() {
+    let savedScroll = window.scrollY;
+    setTimeout(() => {
+        if (savedScroll === window.scrollY) {
+            if (!pastFirst) {
+                pastFirst = true;
+                animatedScrollTo(vh, {
+                    speed: 500,
+                    minDuration: 200,
+                    maxDuration: 750,
+                });
+            }
+        } else {
+            doTheScroll(savedScroll);
+        }
+    }, 5);
+
+}
 
 initSwiper();

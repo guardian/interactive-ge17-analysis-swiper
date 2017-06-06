@@ -24,7 +24,7 @@ $colors: 	lab $lab,
 .interactive-atom {
     margin: 0 !important;
     height: 100vh;
-    @include mq($until: desktop) {
+    @include mq($until: tablet) {
     	overflow: hidden;
 	}
 }
@@ -36,14 +36,14 @@ html, body {
 
 .interactive-desktop {
 	display: none;
-	@include mq(desktop) {
+	@include mq(tablet) {
 		display: block;
 	}
 }
 
 .interactive-mobile {
 	display: none;
-	@include mq($until: desktop) {
+	@include mq($until: tablet) {
 		display: block;
 	}
 }

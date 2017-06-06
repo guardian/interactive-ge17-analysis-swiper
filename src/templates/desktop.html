@@ -9,7 +9,10 @@
     <div class="interactive-desktop__stack-container">
         {{#spreadsheet.stacks}}
         <div class="interactive-desktop__stack">
-            <h2>{{headline}}</h2> {{#cards}} {{#quoteCard}}
+            <div class="stack-header">
+                <img src="<%= path %>/assets/images/{{image}}.png">
+                <h2>{{headline}}</h2>
+            </div> {{#cards}} {{#quoteCard}}
             <div class="header-block">
                 <h3>{{words}}</h3>
             </div>

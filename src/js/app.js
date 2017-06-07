@@ -2,6 +2,9 @@ import xr from 'xr'
 import Swiper from 'swiper'
 import animatedScrollTo from 'animated-scroll-to'
 import Promise from 'promise-polyfill'
+import share from './lib/share'
+
+var shareFn = share('Interactive title', 'http://gu.com/p/URL', '#Interactive');
 
 if (!window.Promise) window.Promise = Promise
 
@@ -91,6 +94,12 @@ function initSwiper() {
     for(let i = 0; i < imagesToLoad.length; i++) {
         loadImage(imagesToLoad[i]);
     }
+
+
+    [].slice.apply(document.querySelectorAll('.interactive-share')).forEach(shareEl => {
+        var network = shareEl.getAttribute('data-network');
+        shareEl.addEventListener('click',() => shareFn(network));
+    });
 }
 
 function loadGraphics(swiperVertical) {

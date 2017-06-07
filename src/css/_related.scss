@@ -11,8 +11,14 @@ $grey: #eaeaea;
     max-width: 1300px;
     padding: 0 20px;
     margin: 0 auto;
-    margin-top: 50px;
+    margin-top: 24px;
     margin-bottom: 100px;
+    // padding-bo
+
+    .shares {
+    	padding-bottom: 24px;
+    }
+
     @include mq($until: wide) {
         max-width: 1140px;
     }
@@ -44,7 +50,6 @@ $grey: #eaeaea;
             margin: 0 0 5px 0px;
         }
         @include mq($until: tablet) {
-            margin-left: 3%;
             font-size: 22px;
         }
     }
@@ -66,8 +71,7 @@ $grey: #eaeaea;
         }
         @include mq($until: tablet) {
             float: right;
-            width: 94%;
-            margin: 0 3%;
+            width: 100%;
         }
         a {
             text-decoration: none;
@@ -96,7 +100,7 @@ $grey: #eaeaea;
                 }
             }
             &:hover .e-content__related-content-item-wrap {
-                background: rgba(51, 51, 51, 0.3);
+                background: darken(#484f53, 5%);
             }
         }
         &-item {

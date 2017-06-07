@@ -52,6 +52,7 @@
     "cheerio": "^0.22.0",
     "mustache": "^2.3.0",
     "node-mkdirp": "^0.0.1",
+    "promiscuous": "^0.7.0",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
     "swiper": "^3.4.2",

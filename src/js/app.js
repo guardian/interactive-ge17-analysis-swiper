@@ -1,18 +1,25 @@
 import xr from 'xr'
 import Swiper from 'swiper'
 import animatedScrollTo from 'animated-scroll-to'
+import Promise from 'promiscuous'
+
+if(!window.Promise) window.Promise = Promise
 
 let isAndroidApp = (window.location.origin === "file://" && /(android)/i.test(navigator.userAgent)) ? true : false;
 var minimalUIChecks = 0;
 
 const $ = sel => document.querySelector(sel)
-const $$ = sel => Array.from(document.querySelectorAll(sel))
+const $$ = sel => [].slice.apply(document.querySelectorAll(sel))
 
 let width = document.querySelector(".interactive-atom").clientWidth;
 let isMobile = width < 980;
 let breakpoint = (width < 355) ? "300" : "355";
 
+<<<<<<< 757740890d6be0b6eacc47ae3aab96ef52bf7ab0
 const vh = $('.swiper-container').getBoundingClientRect().top
+=======
+let vh = $('.swiper-container').getBoundingClientRect().top//getCoords($('.swiper-container')).top
+>>>>>>> android shmandroid
 
 let pastFirst = false;
 
@@ -134,7 +141,10 @@ function addSomePadding() {
 
 document.addEventListener('touchend', (e) => {
     console.log(window.scrollY, pastFirst);
-    if (!pastFirst && window.scrollY > 24) {
+
+    vh = window.scrollY + $('.swiper-container').getBoundingClientRect().top
+
+    if(!pastFirst && window.scrollY > 24) {
         doTheScroll();
     }
 })

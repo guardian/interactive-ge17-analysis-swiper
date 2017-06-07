@@ -105,6 +105,11 @@
 .slide-header {
 	position: absolute;
 	top: 0;
+
+	.android & {
+		top: 20px;
+	}
+
 	left: 0;
 	right: 0;
 	min-height: 36px;
@@ -300,6 +305,9 @@
 		left: 0;
 		right: 0;
 		top: 0;
+		.android & {
+			top: 20px;
+		}
 		box-shadow: 0;
 	}
 }

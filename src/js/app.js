@@ -2,6 +2,8 @@ import xr from 'xr'
 import Swiper from 'swiper'
 import animatedScrollTo from 'animated-scroll-to'
 
+let isAndroidApp = (window.location.origin === "file://" && /(android)/i.test(navigator.userAgent) ) ? true : false;
+
 const $ = sel => document.querySelector(sel)
 const $$ = sel => Array.from(document.querySelectorAll(sel))
 
@@ -57,8 +59,28 @@ function initSwiper() {
                 pagination: ".pagination",
                 centeredSlides: true,
                 autoHeight: true
-            }).on("onTouchMove", (a, b) => {
-                // console.log(a, b);
+            })
+            .on('onTouchStart', function(currentSwiper, e) {
+                if (isAndroidApp && window.GuardianJSInterface.registerRelatedCardsTouch) {
+                    window.GuardianJSInterface.registerRelatedCardsTouch(true);
+                }
+
+                const el = $('.swiper-slide-active .after-el')
+                if (el) {
+                    el.classList.add('after-el--transparent')
+                    el.classList.remove('after-el--filled')
+                }
+            })
+            .on('onTouchEnd', function(currentSwiper, e) {
+                if (isAndroidApp && window.GuardianJSInterface.registerRelatedCardsTouch) {
+                    window.GuardianJSInterface.registerRelatedCardsTouch(false);
+                }
+
+                const el = $('.swiper-slide-active .after-el')
+                if (el) {
+                    el.classList.remove('after-el--transparent')
+                    el.classList.add('after-el--filled')
+                }
             })
             .on("onSlideChangeStart", (swipe) => {
 
@@ -73,22 +95,6 @@ function initSwiper() {
 
                 if (newAnnotation) {
                     newAnnotation.style.opacity = "1";
-                }
-            })
-            .on("onTouchStart", swipe => {
-
-                const el = $('.swiper-slide-active .after-el')
-                if (el) {
-                    el.classList.add('after-el--transparent')
-                    el.classList.remove('after-el--filled')
-                }
-
-            })
-            .on("onTouchEnd", swipe => {
-                const el = $('.swiper-slide-active .after-el')
-                if (el) {
-                    el.classList.remove('after-el--transparent')
-                    el.classList.add('after-el--filled')
                 }
             });
     }
@@ -147,6 +153,7 @@ function addSomePadding() {
 }
 
 document.addEventListener('touchend', (e) => {
+    console.log(window.scrollY, pastFirst);
     if(!pastFirst && window.scrollY > 24) {
         doTheScroll();
     }
@@ -194,8 +201,8 @@ function doTheScroll() {
 
 }
 
-function checkIfMinimalUI() {
-
-}
+window.onfocus = function() { 
+    alert("ON FOCUS!");
+};
 
 initSwiper();

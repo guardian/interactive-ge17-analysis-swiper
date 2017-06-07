@@ -85,6 +85,12 @@ function initSwiper() {
     }
 
     loadGraphics(swiperVertical);
+
+    let imagesToLoad = document.querySelectorAll(".e-content__related-content-item-wrap-image-container");
+
+    for(let i = 0; i < imagesToLoad.length; i++) {
+        loadImage(imagesToLoad[i]);
+    }
 }
 
 function loadGraphics(swiperVertical) {
@@ -144,7 +150,7 @@ document.addEventListener('touchend', (e) => {
 
     console.log(window.scrollY, pastFirst);
 
-    if (!pastFirst && window.scrollY > 100) {
+    if (!pastFirst && window.scrollY > 60) {
         vh = window.scrollY + $('.swiper-container').getBoundingClientRect().top
         doTheScroll();
     }
@@ -152,14 +158,14 @@ document.addEventListener('touchend', (e) => {
     return e;
 })
 
-if (isAndroidApp) {
+// if (isAndroidApp) {
     document.addEventListener('scroll', (e) => {
-        if (!pastFirst && window.scrollY > 100) {
+        if (!pastFirst && window.scrollY > 60) {
             vh = window.scrollY + $('.swiper-container').getBoundingClientRect().top
             doTheScroll();
         }
     });
-}
+// }
 
 // document.addEventListener('touchstart', (e) => {
 //     if (isAndroidApp && window.GuardianJSInterface.registerRelatedCardsTouch) {
@@ -229,6 +235,37 @@ function checkIfMinimalUI(savedHeight) {
             checkIfMinimalUI(savedHeight);
         }
     }, 1000);
+}
+
+function loadImage(elbg) {
+
+    //el info
+    let elWidth = elbg.offsetWidth;
+    let dataUrl = elbg.getAttribute('data-img');
+    let windowHeight = window.innerHeight;
+
+    //determine layout and img size
+    let layout = 'cover';
+
+    //find correct image to load
+    let baseUrl = dataUrl.split('?')[0];
+    let sizes = JSON.parse('[' + dataUrl.split('?')[1].split('&')[0].replace('sizes=', '') + ']');
+    var size;
+    for (var s = 0; s < sizes.length; s++) {
+        var curSize = sizes[s];
+        if (layout == 'cover' && curSize[0] >= elWidth && curSize[1] >= windowHeight) {
+            size = curSize;
+            break;
+        } else if (layout == 'contain' && curSize[0] >= elWidth) {
+            size = curSize;
+            break;
+        } else if (s == sizes.length - 1) {
+            size = curSize;
+        }
+    }
+
+    elbg.style.backgroundImage = `url(${baseUrl}/${size[0]}.jpg)`
+
 }
 
 initSwiper();

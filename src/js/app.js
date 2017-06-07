@@ -3,7 +3,7 @@ import Swiper from 'swiper'
 import animatedScrollTo from 'animated-scroll-to'
 import Promise from 'promise-polyfill'
 
-if(!window.Promise) window.Promise = Promise
+if (!window.Promise) window.Promise = Promise
 
 let isAndroidApp = (window.location.origin === "file://" && /(android)/i.test(navigator.userAgent)) ? true : false;
 let isiOSApp = document.body.classList.contains("ios");
@@ -144,7 +144,7 @@ document.addEventListener('touchend', (e) => {
 
     console.log(window.scrollY, pastFirst);
 
-    if(!pastFirst && window.scrollY > 100) {
+    if (!pastFirst && window.scrollY > 100) {
         vh = window.scrollY + $('.swiper-container').getBoundingClientRect().top
         doTheScroll();
     }
@@ -152,9 +152,9 @@ document.addEventListener('touchend', (e) => {
     return e;
 })
 
-if(isAndroidApp) {
+if (isAndroidApp) {
     document.addEventListener('scroll', (e) => {
-        if(!pastFirst && window.scrollY > 100) {
+        if (!pastFirst && window.scrollY > 100) {
             vh = window.scrollY + $('.swiper-container').getBoundingClientRect().top
             doTheScroll();
         }
@@ -175,6 +175,11 @@ function doTheScroll() {
         if (savedScroll === window.scrollY) {
             if (!pastFirst) {
                 pastFirst = true;
+
+                if (isiOSApp) {
+                    vh = vh + 60;
+                }
+
                 animatedScrollTo(vh, {
                     speed: 500,
                     minDuration: 200,
@@ -183,10 +188,10 @@ function doTheScroll() {
 
                 // do it again just in case it's slightly off :) 
                 setTimeout(() => {
-                    if(isiOSApp) {
+                    if (isiOSApp) {
                         vh = vh + 60;
                     }
-                
+
                     animatedScrollTo(vh, {
                         speed: 500,
                         minDuration: 200,
@@ -220,7 +225,7 @@ function checkIfMinimalUI(savedHeight) {
         }
         minimalUIChecks = minimalUIChecks - 1;
 
-        if(minimalUIChecks === 0) {
+        if (minimalUIChecks === 0) {
             checkIfMinimalUI(savedHeight);
         }
     }, 1000);

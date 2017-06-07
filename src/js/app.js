@@ -53,25 +53,24 @@ function initSwiper() {
                 centeredSlides: true,
                 autoHeight: true
             })
-            .on('onTouchStart', function(currentSwiper, e) {
+            .on('onSlideChangeStart', function(currentSwiper, e) {
                 if (isAndroidApp && window.GuardianJSInterface.registerRelatedCardsTouch) {
                     window.GuardianJSInterface.registerRelatedCardsTouch(true);
                 }
 
-                const el = $('.swiper-slide-active .after-el')
-                if (el) {
-                    el.classList.add('after-el--transparent')
-                    el.classList.remove('after-el--filled')
-                }
             })
-            .on('onTouchEnd', function(currentSwiper, e) {
+            .on('onSlideChangeEnd', function(currentSwiper, e) {
                 if (isAndroidApp && window.GuardianJSInterface.registerRelatedCardsTouch) {
                     window.GuardianJSInterface.registerRelatedCardsTouch(false);
                 }
 
                 const el = $('.swiper-slide-active .after-el')
-                if (el && !currentSwiper.isEnd) {
-                    el.classList.remove('after-el--transparent')
+
+                if (el && currentSwiper.snapIndex === currentSwiper.slides.length - 1) {
+
+                    el.classList.add('after-el--transparent')
+                    el.classList.remove('after-el--filled')
+                } else if(el) {
                     el.classList.add('after-el--filled')
                 }
             })
@@ -165,9 +164,7 @@ document.addEventListener('touchend', (e) => {
     //     window.GuardianJSInterface.registerRelatedCardsTouch(false);
     // }
 
-    console.log(window.scrollY, pastFirst);
-
-    if (!pastFirst && window.scrollY > 60) {
+    if (!pastFirst && window.scrollY > 40) {
         vh = window.scrollY + $('.swiper-container').getBoundingClientRect().top
         doTheScroll();
     }
@@ -175,14 +172,14 @@ document.addEventListener('touchend', (e) => {
     return e;
 })
 
-// if (isAndroidApp) {
-document.addEventListener('scroll', (e) => {
-    if (!pastFirst && window.scrollY > 60) {
-        vh = window.scrollY + $('.swiper-container').getBoundingClientRect().top
-        doTheScroll();
-    }
-});
-// }
+if (isAndroidApp) {
+    document.addEventListener('scroll', (e) => {
+        if (!pastFirst && window.scrollY > 60) {
+            vh = window.scrollY + $('.swiper-container').getBoundingClientRect().top
+            doTheScroll();
+        }
+    });
+}
 
 // document.addEventListener('touchstart', (e) => {
 //     if (isAndroidApp && window.GuardianJSInterface.registerRelatedCardsTouch) {
@@ -222,7 +219,7 @@ function doTheScroll() {
                         maxDuration: 750
                     });
 
-                    let savedHeight = window.innerHeight;
+                    let savedHeight = $('.swiper-container').clientHeight;
 
                     checkIfMinimalUI(savedHeight);
                 }, 1000);
@@ -286,4 +283,8 @@ function loadImage(elbg) {
 
 }
 
+
 initSwiper();
+
+
+$('.swiper-container').classList.remove('swiper-container--hidden')

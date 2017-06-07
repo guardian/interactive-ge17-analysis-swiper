@@ -10,10 +10,11 @@
             <button class="interactive-share" data-network="email"></button>
         </div>
         <div class="interactive-mobile__overlay">
-            Swipe down to continue :)
+            <div class='interactive-mobile__overlay__hint'>Swipe down to resume the full screen experience.</div>
+            <div class='interactive-mobile__overlay__arrow'></div>
         </div>
     </div>
-    <div class="swiper-container swiper-container--vertical">
+    <div class="swiper-container swiper-container--hidden swiper-container--vertical">
         <div class="swiper-wrapper">
             {{#spreadsheet.stacks}}
             <div class="swiper-slide swiper-slide--vertical">

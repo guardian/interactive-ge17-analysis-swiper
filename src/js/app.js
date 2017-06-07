@@ -32,8 +32,6 @@ let breakpoint = (width < 355) ? "300" : "355";
 
 const vh = getCoords($('.swiper-container')).top
 
-console.log(vh)
-
 let pastFirst = false;
 
 function initSwiper() {
@@ -149,7 +147,9 @@ function addSomePadding() {
 }
 
 document.addEventListener('touchend', (e) => {
-    doTheScroll();
+    if(!pastFirst && window.scrollY > 24) {
+        doTheScroll();
+    }
 })
 
 function doTheScroll() {
@@ -161,13 +161,40 @@ function doTheScroll() {
                 animatedScrollTo(vh, {
                     speed: 500,
                     minDuration: 200,
-                    maxDuration: 750,
+                    maxDuration: 750
                 });
+
+                // do it again just in case it's slightly off :) 
+                setTimeout(() => {
+                    animatedScrollTo(vh, {
+                        speed: 500,
+                        minDuration: 200,
+                        maxDuration: 750
+                    });
+
+                    let savedHeight = window.innerHeight;
+
+                    setInterval(() => {
+                        if(savedHeight !== window.innerHeight) {
+                            animatedScrollTo(0, {
+                                speed: 500,
+                                minDuration: 200,
+                                maxDuration: 750
+                            });
+
+                            pastFirst = false;
+                        }
+                    }, 1000);
+                }, 250);
             }
         } else {
             doTheScroll(savedScroll);
         }
     }, 5);
+
+}
+
+function checkIfMinimalUI() {
 
 }
 

@@ -1,7 +1,7 @@
 import xr from 'xr'
 import Swiper from 'swiper'
 import animatedScrollTo from 'animated-scroll-to'
-import Promise from 'promiscuous'
+import Promise from 'promise-polyfill'
 
 if(!window.Promise) window.Promise = Promise
 

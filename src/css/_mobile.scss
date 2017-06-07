@@ -110,6 +110,10 @@
 		top: 20px;
 	}
 
+	.ios & {
+		top: 12px;
+	}
+
 	left: 0;
 	right: 0;
 	min-height: 36px;
@@ -308,6 +312,9 @@
 		.android & {
 			top: 20px;
 		}
+		.ios & {
+			top: 12px;
+		}
 		box-shadow: 0;
 	}
 }
@@ -390,6 +397,14 @@
 	&.show-overlay {
 		display: block;
 	}
+}
+
+.interactive-mobile::after {
+	display: block;
+	content: '';
+	height: 60px;
+	width: 100%;
+	opacity: 0;
 }
 
 @each $color in $colors {

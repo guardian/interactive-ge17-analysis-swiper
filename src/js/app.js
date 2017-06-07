@@ -6,6 +6,8 @@ import Promise from 'promise-polyfill'
 if(!window.Promise) window.Promise = Promise
 
 let isAndroidApp = (window.location.origin === "file://" && /(android)/i.test(navigator.userAgent)) ? true : false;
+let isiOSApp = document.body.classList.contains("ios");
+
 var minimalUIChecks = 0;
 
 const $ = sel => document.querySelector(sel)
@@ -136,14 +138,36 @@ function addSomePadding() {
 }
 
 document.addEventListener('touchend', (e) => {
+    // if (isAndroidApp && window.GuardianJSInterface.registerRelatedCardsTouch) {
+    //     window.GuardianJSInterface.registerRelatedCardsTouch(false);
+    // }
+
     console.log(window.scrollY, pastFirst);
 
-    vh = window.scrollY + $('.swiper-container').getBoundingClientRect().top
-
-    if(!pastFirst && window.scrollY > 24) {
+    if(!pastFirst && window.scrollY > 100) {
+        vh = window.scrollY + $('.swiper-container').getBoundingClientRect().top
         doTheScroll();
     }
+
+    return e;
 })
+
+if(isAndroidApp) {
+    document.addEventListener('scroll', (e) => {
+        if(!pastFirst && window.scrollY > 100) {
+            vh = window.scrollY + $('.swiper-container').getBoundingClientRect().top
+            doTheScroll();
+        }
+    });
+}
+
+// document.addEventListener('touchstart', (e) => {
+//     if (isAndroidApp && window.GuardianJSInterface.registerRelatedCardsTouch) {
+//         window.GuardianJSInterface.registerRelatedCardsTouch(true);
+//     }
+
+//     return e;
+// });
 
 function doTheScroll() {
     let savedScroll = window.scrollY;
@@ -159,6 +183,10 @@ function doTheScroll() {
 
                 // do it again just in case it's slightly off :) 
                 setTimeout(() => {
+                    if(isiOSApp) {
+                        vh = vh + 60;
+                    }
+                
                     animatedScrollTo(vh, {
                         speed: 500,
                         minDuration: 200,
@@ -168,7 +196,7 @@ function doTheScroll() {
                     let savedHeight = window.innerHeight;
 
                     checkIfMinimalUI(savedHeight);
-                }, 250);
+                }, 750);
             }
         } else {
             doTheScroll(savedScroll);

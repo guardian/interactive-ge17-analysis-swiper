@@ -9,7 +9,7 @@ import cheerio from 'cheerio'
 
 export async function render(assetPath) {
     let spreadsheet = JSON.parse(await rp("https://interactive.guim.co.uk/docsdata-test/1_YBBoPBQE4sBV5rCxh8AhaLNiU1kPlBY30qCkVmZZWE.json"));
-    
+
     spreadsheet = cleanSpreadsheet(spreadsheet);
 
     cleanGraphics(assetPath, spreadsheet);
@@ -35,7 +35,7 @@ function cleanGraphics(assetPath, spreadsheet) {
             let html = $.html($(".ai2html").html(artboardHtml));
 
             let cleanedHtml = html.replace(/background-image:url\(/g, "background-image:url(" + assetPath + "/assets/").replace(/\[\[/g, "{{").replace(/\]\]/g, "}}");
-            
+
             cleanedHtml = Mustache.render(cleanedHtml, annotations);
 
             mkdirp("./.build/graphics/", function(err) {
@@ -48,17 +48,24 @@ function cleanGraphics(assetPath, spreadsheet) {
 
 function cleanSpreadsheet(spreadsheet) {
     //add end cards
+    var advertCounter = 0;
 
-    spreadsheet.stacks.map((stack,i) => {
+    spreadsheet.stacks.map((stack, i) => {
         stack.number = i + 1;
+
+        if (isEven(stack.number)) {
+            advertCounter++;
+            stack.advert = true;
+            stack.advertCount = advertCounter;
+        }
 
         stack.cards.unshift({
             "headerCard": true,
             "words": stack.headline
         });
 
-        let nextStack = spreadsheet.stacks[i+1];
-        if(nextStack) {
+        let nextStack = spreadsheet.stacks[i + 1];
+        if (nextStack) {
             stack.nextStack = {
                 "words": nextStack.headline
             };
@@ -70,4 +77,9 @@ function cleanSpreadsheet(spreadsheet) {
         return stack;
     });
     return spreadsheet;
+}
+
+function isEven(n) {
+    n = Number(n);
+    return n === 0 || !!(n && !(n % 2));
 }

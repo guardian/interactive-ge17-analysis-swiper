@@ -212,6 +212,7 @@ function doTheScroll() {
                 // do it again just in case it's slightly off :) 
                 setTimeout(() => {
                     if (isiOSApp) {
+                        vh = window.scrollY + $('.swiper-container').getBoundingClientRect().top
                         vh = vh + 60;
                     }
 
@@ -224,7 +225,7 @@ function doTheScroll() {
                     let savedHeight = window.innerHeight;
 
                     checkIfMinimalUI(savedHeight);
-                }, 750);
+                }, 1000);
             }
         } else {
             doTheScroll(savedScroll);

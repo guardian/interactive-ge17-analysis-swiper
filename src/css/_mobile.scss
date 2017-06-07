@@ -377,6 +377,21 @@
 	margin-top: 48px;
 }
 
+.interactive-mobile__overlay {
+	position: absolute;
+	display: none;
+	z-index: 999;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: salmon;
+
+	&.show-overlay {
+		display: block;
+	}
+}
+
 @each $color in $colors {
     .color--#{nth($color, 1)} {
     	color: nth($color, 2);

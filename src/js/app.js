@@ -2,37 +2,17 @@ import xr from 'xr'
 import Swiper from 'swiper'
 import animatedScrollTo from 'animated-scroll-to'
 
-let isAndroidApp = (window.location.origin === "file://" && /(android)/i.test(navigator.userAgent) ) ? true : false;
+let isAndroidApp = (window.location.origin === "file://" && /(android)/i.test(navigator.userAgent)) ? true : false;
+var minimalUIChecks = 0;
 
 const $ = sel => document.querySelector(sel)
 const $$ = sel => Array.from(document.querySelectorAll(sel))
-
-function getCoords(elem) { // crossbrowser version
-    var box = elem.getBoundingClientRect();
-
-    var body = document.body;
-    var docEl = document.documentElement;
-
-    var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
-    var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
-
-    var clientTop = docEl.clientTop || body.clientTop || 0;
-    var clientLeft = docEl.clientLeft || body.clientLeft || 0;
-
-    var top = box.top + scrollTop - clientTop;
-    var left = box.left + scrollLeft - clientLeft;
-
-    return {
-        top: Math.round(top),
-        left: Math.round(left)
-    };
-}
 
 let width = document.querySelector(".interactive-atom").clientWidth;
 let isMobile = width < 980;
 let breakpoint = (width < 355) ? "300" : "355";
 
-const vh = getCoords($('.swiper-container')).top
+const vh = $('.swiper-container').getBoundingClientRect().top
 
 let pastFirst = false;
 
@@ -154,7 +134,7 @@ function addSomePadding() {
 
 document.addEventListener('touchend', (e) => {
     console.log(window.scrollY, pastFirst);
-    if(!pastFirst && window.scrollY > 24) {
+    if (!pastFirst && window.scrollY > 24) {
         doTheScroll();
     }
 })
@@ -181,17 +161,7 @@ function doTheScroll() {
 
                     let savedHeight = window.innerHeight;
 
-                    setInterval(() => {
-                        if(savedHeight !== window.innerHeight) {
-                            animatedScrollTo(0, {
-                                speed: 500,
-                                minDuration: 200,
-                                maxDuration: 750
-                            });
-
-                            pastFirst = false;
-                        }
-                    }, 1000);
+                    checkIfMinimalUI(savedHeight);
                 }, 250);
             }
         } else {
@@ -199,6 +169,27 @@ function doTheScroll() {
         }
     }, 5);
 
+}
+
+function checkIfMinimalUI(savedHeight) {
+    minimalUIChecks++;
+    setTimeout(() => {
+        if (savedHeight !== window.innerHeight) {
+            document.querySelector(".interactive-mobile__overlay").classList.add("show-overlay");
+            animatedScrollTo(0, {
+                speed: 500,
+                minDuration: 200,
+                maxDuration: 750
+            });
+
+            pastFirst = false;
+        }
+        minimalUIChecks = minimalUIChecks - 1;
+
+        if(minimalUIChecks === 0) {
+            checkIfMinimalUI(savedHeight);
+        }
+    }, 1000);
 }
 
 initSwiper();

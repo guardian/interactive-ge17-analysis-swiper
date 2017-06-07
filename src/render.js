@@ -53,7 +53,7 @@ function cleanSpreadsheet(spreadsheet) {
     spreadsheet.stacks.map((stack, i) => {
         stack.number = i + 1;
 
-        if (isEven(stack.number)) {
+        if (isOdd(stack.number)) {
             advertCounter++;
             stack.advert = true;
             stack.advertCount = advertCounter;
@@ -82,4 +82,8 @@ function cleanSpreadsheet(spreadsheet) {
 function isEven(n) {
     n = Number(n);
     return n === 0 || !!(n && !(n % 2));
+}
+
+function isOdd(num) {
+    return num % 2 === 1;
 }

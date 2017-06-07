@@ -69,26 +69,27 @@ html, body {
         }
     }
     .ad-wrapper--desktop {
-        margin-left: 20px;
-        margin-right: 20px;
+        // margin-left: 20px;
+        // margin-right: 20px;
         .ad-slot--rendered {
 
             @include mq($from: tablet) {
                 padding-left: 5px;
-                margin: 40px -20px;
+                margin: 0;
                 width: calc(100% + 40px);
             }
             @include mq($from:desktop) {
                 margin: 40px 0;
                 width: 100%;
+                padding-left: 20px;
             }
-            @include mq($from:wide) {
-                padding-left: 170px;
+            @include mq($from:leftCol) {
+                padding-left: 140px;
                 margin: 40px 0;
                 width: 100%;
             }
             @include mq($from:wide) {
-                padding-left: 250px;
+                padding-left: 240px;
             }
             .ad-slot__label {
                 border-top: 0px;

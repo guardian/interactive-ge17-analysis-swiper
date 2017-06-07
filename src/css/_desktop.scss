@@ -21,6 +21,10 @@
 .interactive-desktop__stack {
 	overflow: hidden;
 	@include mq(tablet) {
+    	margin-left: 10px;
+    }
+
+    @include mq(desktop) {
     	margin-left: 20px;
     }
 
@@ -89,6 +93,10 @@
     overflow: hidden;
 
     @include mq(tablet) {
+    	padding-left: 10px;
+    }
+
+    @include mq(desktop) {
     	padding-left: 20px;
     }
 
@@ -111,6 +119,9 @@
 	position: relative;
 	float: left;
 	margin-right: 20px; 
+	@include mq($until: desktop) {
+		margin-right: 10px;
+	}
 	margin-bottom: 24px;
 	// box-sizing: border-box;
 	// border: 1px solid #eaeaea;
@@ -172,6 +183,6 @@
 .base-layer {
 	position: absolute;
     top: 112px;
-    left: 10px;
+    left: 0;
 }
 

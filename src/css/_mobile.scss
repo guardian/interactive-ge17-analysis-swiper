@@ -394,6 +394,29 @@ h2.share-header {
 	// color: #767676 !important;
 }
 
+.mobile-bylines {
+	&::before {
+		display: none !important;
+	}
+	
+	font-size: 16px !important;
+	line-height: 20px !important;
+	color: #767676 !important;
+	padding-bottom: 6px;
+	padding-top: 24px;
+
+	a {
+		color: #fff;
+		color: #767676;
+		border-bottom: 1px solid rgba(0,0,0,0.2);
+		padding-bottom: 1px;
+
+		&:hover {
+			text-decoration: none;
+		}
+	}
+}
+
 @each $color in $colors {
     .color--#{nth($color, 1)} {
     	color: nth($color, 2);

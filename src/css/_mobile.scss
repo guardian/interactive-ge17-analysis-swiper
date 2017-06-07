@@ -84,6 +84,9 @@
 }
 
 .slide-header {
+
+	box-sizing: border-box;
+	margin: 0 4px;
 	position: absolute;
 	top: 0;
 
@@ -156,6 +159,8 @@
 
 .swiper-slide--header-card {
 	.slide-header {
+
+		margin: 0;
 		height: 100%;
 		@include fs-headline(9);
 		line-height: 42px;

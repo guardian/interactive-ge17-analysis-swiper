@@ -201,8 +201,4 @@ function doTheScroll() {
 
 }
 
-window.onfocus = function() { 
-    alert("ON FOCUS!");
-};
-
 initSwiper();

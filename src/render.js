@@ -53,7 +53,7 @@ function cleanSpreadsheet(spreadsheet) {
     spreadsheet.stacks.map((stack, i) => {
         stack.number = i + 1;
 
-        if (isOdd(stack.number)) {
+        if (isOdd(stack.number) && stack.number < spreadsheet.stacks.length) {
             advertCounter++;
             stack.advert = true;
             stack.advertCount = advertCounter;

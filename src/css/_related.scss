@@ -7,12 +7,57 @@ $darkGrey: #767676;
 $midGrey: #DCDCDC;
 $grey: #eaeaea;
 
+// .e-content__related-content__inner {
+//     @include mq(tablet) {
+
+//     }
+// }
+
 .e-content__related {
+    position: relative;
+
     max-width: 1300px;
-    padding: 0 20px;
     margin: 0 auto;
-    margin-top: 24px;
-    margin-bottom: 100px;
+    @include mq($until: tablet) {
+        margin-top: 24px;
+        padding: 0 20px;
+    }
+
+    @include mq(tablet) {
+        background-color: #fff;
+        box-sizing: border-box;
+        padding-bottom: 24px;
+        border-top: 1px solid #4bc6df;
+        padding-top: 4px;
+
+        &::before {
+            content: "general election 2017";
+            font-size: 1.375rem;
+            line-height: 1.75rem;
+            font-family: "Guardian Egyptian Web","Guardian Text Egyptian Web",Georgia,serif;
+            font-weight: 900;
+            position: relative;
+            padding-bottom: 0.25rem;
+            line-height: 1.5rem;
+            color: #197caa;
+            padding-left: 20px;
+
+            @include mq(leftCol) {
+                position: absolute;
+                top: 6px;
+            }
+            @include mq(leftCol, wide) {
+                font-size: 1.25rem;
+                line-height: 1.5rem;
+                max-width: 100px;
+            }
+            @include mq(wide) {
+                max-width: 200px;
+            }
+            display: block;
+        }
+    }
+
     // padding-bo
 
     .shares {
@@ -23,10 +68,10 @@ $grey: #eaeaea;
         max-width: 1140px;
     }
     @include mq($until: leftCol) {
-        max-width: 960px;
+        max-width: 980px;
     }
     @include mq($until: desktop) {
-        max-width: 720px;
+        max-width: 740px;
     }
     @include mq($until: tablet) {
         padding: 0;
@@ -56,15 +101,16 @@ $grey: #eaeaea;
     &-content {
         //ul
         margin: 0;
-        margin-left: 240px;
+        margin-left: 230px;
         width: 940px;
         font-size: 0;
         display: block;
         @include mq($until: wide) {
-            margin-left: 160px;
+            margin-left: 130px;
         }
         @include mq($until: leftCol) {
             margin-left: -10px;
+            padding-left: 20px;
         }
         @include mq($until: desktop) {
             width: 700px;
@@ -95,7 +141,7 @@ $grey: #eaeaea;
                         left: 0;
                         width: 1px;
                         height: 100%;
-                        border-left: 1px solid #333;
+                        border-left: 1px solid #dcdcdc;
                     }
                 }
             }

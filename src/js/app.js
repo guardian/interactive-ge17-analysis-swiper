@@ -3,6 +3,7 @@ import Swiper from 'swiper'
 import animatedScrollTo from 'animated-scroll-to'
 import Promise from 'promise-polyfill'
 import share from './lib/share'
+import tracker from './lib/tracker'
 
 var shareFn = share('Interactive title', 'http://gu.com/p/URL', '#Interactive');
 
@@ -27,6 +28,7 @@ let pastFirst = false;
 function initSwiper() {
     var swipers = [];
     var cardStacks = document.querySelectorAll('.swiper-container--horizontal');
+    var analytics = tracker();
 
     var swiperVertical = new Swiper(document.querySelector(".swiper-container--vertical"), {
         paginationClickable: true,
@@ -36,6 +38,9 @@ function initSwiper() {
         pagination: ".pagination",
         direction: "vertical",
         autoHeight: true
+    }).on("onSlideChangeStart", (swipe) => {
+        let verticali = swiperVertical.snapIndex + 1;
+        analytics.registerEvent('analysis_card_view', verticali);
     });
 
     for (var s = 0; s < cardStacks.length; s++) {
@@ -71,6 +76,9 @@ function initSwiper() {
                 }
             })
             .on("onSlideChangeStart", (swipe) => {
+                let verticali = swiperVertical.snapIndex + 1;
+                let horizontali = swipe.snapIndex + 1;
+                analytics.registerEvent('analysis_card_view', verticali + "_" + horizontali);
 
                 let newAnnotation = document.querySelector(".annotation-layer[data-graphic=" + swipe.slides[swipe.snapIndex].getAttribute("data-graphic") + "]")
                 let annotations = document.querySelectorAll(".swiper-slide-active .annotation-layer");
@@ -91,14 +99,14 @@ function initSwiper() {
 
     let imagesToLoad = document.querySelectorAll(".e-content__related-content-item-wrap-image-container");
 
-    for(let i = 0; i < imagesToLoad.length; i++) {
+    for (let i = 0; i < imagesToLoad.length; i++) {
         loadImage(imagesToLoad[i]);
     }
 
 
     [].slice.apply(document.querySelectorAll('.interactive-share')).forEach(shareEl => {
         var network = shareEl.getAttribute('data-network');
-        shareEl.addEventListener('click',() => shareFn(network));
+        shareEl.addEventListener('click', () => shareFn(network));
     });
 }
 
@@ -168,12 +176,12 @@ document.addEventListener('touchend', (e) => {
 })
 
 // if (isAndroidApp) {
-    document.addEventListener('scroll', (e) => {
-        if (!pastFirst && window.scrollY > 60) {
-            vh = window.scrollY + $('.swiper-container').getBoundingClientRect().top
-            doTheScroll();
-        }
-    });
+document.addEventListener('scroll', (e) => {
+    if (!pastFirst && window.scrollY > 60) {
+        vh = window.scrollY + $('.swiper-container').getBoundingClientRect().top
+        doTheScroll();
+    }
+});
 // }
 
 // document.addEventListener('touchstart', (e) => {

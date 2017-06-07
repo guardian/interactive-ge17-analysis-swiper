@@ -23,9 +23,9 @@ $colors: 	lab $lab,
 .element-atom,
 .interactive-atom {
     margin: 0 !important;
-    height: 100vh;
     @include mq($until: tablet) {
     	//overflow: hidden;
+         height: 100vh;
 	}
 }
 
@@ -96,6 +96,13 @@ html, body {
                 padding-left: 0;
             }
         }
+    }
+}
+
+.is-immersive-interactive .l-footer {
+    @include mq(tablet) {
+        display: block !important;
+        position: relative;
     }
 }
 

@@ -32,4 +32,24 @@
         </div>
         {{/advert}} {{/spreadsheet.stacks}}
     </div>
+    <div class="e-content__related">
+        <ul class="e-content__related-content">
+
+            {{#spreadsheet.relatedLinks}}
+            <a href="{{url}}">
+                <li class="e-content__related-content-item">
+                    <div class="e-content__related-content-item-wrap">
+                        <div class="e-content__related-content-item-wrap-image">
+                            <div class="e-content__related-content-item-wrap-image-container" data-img="{{img-src}}"></div>
+                        </div>
+                        <div class="e-content__related-content-item-wrap-copy">
+                            <p class="e-content__related-content-item-wrap-copy-caption">{{headline}}</p>
+                            <p class="e-content__related-content-item-wrap-copy-date">{{date}}</p>
+                        </div>
+                    </div>
+                </li>
+            </a>
+            {{/spreadsheet.relatedLinks}}
+        </ul>
+    </div>
 </div>

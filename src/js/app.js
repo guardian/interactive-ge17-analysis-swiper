@@ -15,11 +15,7 @@ let width = document.querySelector(".interactive-atom").clientWidth;
 let isMobile = width < 980;
 let breakpoint = (width < 355) ? "300" : "355";
 
-<<<<<<< 757740890d6be0b6eacc47ae3aab96ef52bf7ab0
-const vh = $('.swiper-container').getBoundingClientRect().top
-=======
-let vh = $('.swiper-container').getBoundingClientRect().top//getCoords($('.swiper-container')).top
->>>>>>> android shmandroid
+let vh = $('.swiper-container').getBoundingClientRect().top;
 
 let pastFirst = false;
 

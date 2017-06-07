@@ -35,7 +35,8 @@ function initSwiper() {
         loop: false,
         slidesPerView: 1,
         spaceBetween: 0,
-        pagination: ".pagination",
+        pagination: ".ge-pagination",
+        paginationClickable : false,
         direction: "vertical",
         autoHeight: true
     }).on("onSlideChangeStart", (swipe) => {
@@ -49,7 +50,6 @@ function initSwiper() {
                 loop: false,
                 slidesPerView: 1,
                 spaceBetween: 0,
-                pagination: ".pagination",
                 centeredSlides: true,
                 autoHeight: true
             })
@@ -70,7 +70,7 @@ function initSwiper() {
                 }
 
                 const el = $('.swiper-slide-active .after-el')
-                if (el) {
+                if (el && !currentSwiper.isEnd) {
                     el.classList.remove('after-el--transparent')
                     el.classList.add('after-el--filled')
                 }

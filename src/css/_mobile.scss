@@ -6,6 +6,32 @@
 
 }
 
+.ge-pagination.swiper-pagination-bullets {
+
+	position: absolute;
+	display: block;
+	z-index: 200;
+	line-height: 8px;
+	height: 60px;
+	width: 8px;
+	top: 32px;
+	right: 6px;
+	visibility: hidden;
+}
+
+.swiper-pagination-bullet {
+
+	border: 1px solid white;
+	box-sizing: border-box;
+	width: 6px;
+	height: 6px;
+	background-color: transparent;
+
+	&.swiper-pagination-bullet-active {
+		border: 3px solid white;
+	}
+}
+
 
 .after-el {
 		position: absolute;
@@ -216,6 +242,7 @@
   		background-repeat: no-repeat;
   		background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSItMTc1IDMyNSAxOCAyNCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAtMTc1IDMyNSAxOCAyNCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTS0xNjAsMzI0LjlsLTYuMywxMS4xbDYuMywxMS4xbC0wLjcsMC41bC04LjQtMTAuNWwtMC45LTEuMWwwLjktMS4xbDguNC0xMC41Qy0xNjAuNywzMjQuNC0xNjAsMzI0LjktMTYwLDMyNC45eiIvPjwvc3ZnPg==);
 	
+		z-index: 2000;
 
 		content: 'Swipe to read';
 		width: 105px;

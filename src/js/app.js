@@ -87,15 +87,20 @@ function initSwiper() {
                     let newAnnotation = document.querySelector(".annotation-layer[data-graphic=" + swipe.slides[swipe.snapIndex].getAttribute("data-graphic") + "]")
                     let annotations = document.querySelectorAll(".swiper-slide-active .annotation-layer");
 
-                    for (var i = 0; i < annotations.length; i++) {
-                        if (annotations[i]) {
-                            annotations[i].style.opacity = "0";
-                        }
-                    }
+                    window.requestAnimationFrame(() => {
 
-                    if (newAnnotation) {
-                        newAnnotation.style.opacity = "1";
-                    }
+                        for (var i = 0; i < annotations.length; i++) {
+                            if (annotations[i]) {
+                                annotations[i].style.opacity = "0";
+                            }
+                        }
+
+                        if (newAnnotation) {
+                            newAnnotation.style.opacity = "1";
+                        }
+
+                    })
+
                 });
             });
     }

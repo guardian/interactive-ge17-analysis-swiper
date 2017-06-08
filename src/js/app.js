@@ -12,6 +12,8 @@ if (!window.Promise) window.Promise = Promise
 let isAndroidApp = (window.location.origin === "file://" && /(android)/i.test(navigator.userAgent)) ? true : false;
 let isiOSApp = document.body.classList.contains("ios");
 
+let recentlyGoneUp = false
+
 var minimalUIChecks = 0;
 
 const $ = sel => document.querySelector(sel)
@@ -21,7 +23,7 @@ let width = document.querySelector(".interactive-atom").clientWidth;
 let isMobile = width < 980;
 let breakpoint = (width < 355) ? "300" : "355";
 
-let vh = $('.swiper-container').getBoundingClientRect().top;
+let vh = $('.swiper-container').getBoundingClientRect().top - 1;
 
 let pastFirst = false;
 
@@ -66,12 +68,15 @@ function initSwiper() {
             .on('onSlideChangeEnd', function(currentSwiper, e) {
                 const el = $('.swiper-slide-active .after-el')
 
-                if (el && currentSwiper.snapIndex === currentSwiper.slides.length - 1) {
+                console.log(currentSwiper.snapIndex)
 
-                    el.classList.add('after-el--transparent')
-                    el.classList.remove('after-el--filled')
+                if (el && currentSwiper.snapIndex !== currentSwiper.slides.length - 1
+                    && currentSwiper.snapIndex !== 0) {
+
+                    el.classList.add('after-el--show')
+                 
                 } else if(el) {
-                    el.classList.add('after-el--filled')
+                    el.classList.remove('after-el--show')
                 }
             })
             .on("onSlideChangeStart", (swipe) => {
@@ -232,10 +237,16 @@ function doTheScroll() {
 
 }
 
+setInterval( () => recentlyGoneUp = false, 2000)
+
+
 function checkIfMinimalUI(savedHeight) {
     minimalUIChecks++;
     setTimeout(() => {
-        if (savedHeight !== window.innerHeight) {
+        if (savedHeight !== window.innerHeight && !recentlyGoneUp) {
+
+            console.log('about to go up')
+
             document.querySelector(".interactive-mobile__overlay").classList.add("show-overlay");
 
             animatedScrollTo(0, {
@@ -245,6 +256,7 @@ function checkIfMinimalUI(savedHeight) {
             });
 
             pastFirst = false;
+            recentlyGoneUp = true;
         }
         minimalUIChecks = minimalUIChecks - 1;
 

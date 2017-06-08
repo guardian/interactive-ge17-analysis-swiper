@@ -20,7 +20,7 @@ const $ = sel => document.querySelector(sel)
 const $$ = sel => [].slice.apply(document.querySelectorAll(sel))
 
 let width = document.querySelector(".interactive-atom").clientWidth;
-let isMobile = width < 980;
+let isMobile = width < 740;
 let breakpoint = (width < 355) ? "300" : "355";
 
 let vh = $('.swiper-container').getBoundingClientRect().top;
@@ -66,9 +66,7 @@ function initSwiper() {
                 }
             })
             .on('onSlideChangeEnd', function(currentSwiper, e) {
-                const el = $('.swiper-slide-active .after-el')
-
-                console.log(currentSwiper.snapIndex)
+                const el = $('.swiper-slide-active .after-el');
 
                 if (el && currentSwiper.snapIndex !== currentSwiper.slides.length - 1 && currentSwiper.snapIndex !== 0) {
 
@@ -167,11 +165,11 @@ function addSomePadding() {
 }
 
 document.addEventListener('touchend', (e) => {
-    if (isAndroidApp && window.GuardianJSInterface.registerRelatedCardsTouch) {
-        window.GuardianJSInterface.registerRelatedCardsTouch(false);
-    }
+    // if (isAndroidApp && window.GuardianJSInterface.registerRelatedCardsTouch) {
+    //     window.GuardianJSInterface.registerRelatedCardsTouch(false);
+    // }
 
-    if (!pastFirst && window.scrollY > 60) {
+    if (!pastFirst && window.scrollY > 60 && isMobile) {
         vh = window.scrollY + $('.swiper-container').getBoundingClientRect().top
         doTheScroll();
     }
@@ -220,11 +218,7 @@ function doTheScroll() {
                         vh = vh + 60;
                     }
 
-                    animatedScrollTo(vh, {
-                        speed: 500,
-                        minDuration: 200,
-                        maxDuration: 750
-                    });
+                    window.scrollTo(0, vh);
 
                     let savedHeight = (isiOSApp) ? window.innerHeight : $('.swiper-container').clientHeight;
 

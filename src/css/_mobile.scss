@@ -442,11 +442,28 @@
 	@include fs-headline(6);
 	font-weight: 300;
 
+	.overlay-image {
+		width: calc(100vw + 40px);
+		// margin: 0;
+	}
+
 	&.show-overlay {
 		display: block;
 	}
 
 	& .interactive-mobile__overlay__arrow {
+		&::after {
+			content: 'Swipe up to continue';
+			display: block;
+			width: 200px;
+			margin-left: -70px;
+			margin-top: -42px;
+			text-align: center;
+			@include fs-textSans(3);
+			font-size: 18px;
+			line-height: 22px;
+			font-weight: bold;
+		}
 
 		display: block;
 		position: absolute;

@@ -248,6 +248,7 @@ function checkIfMinimalUI(savedHeight) {
             console.log('about to go up')
 
             document.querySelector(".interactive-mobile__overlay").classList.add("show-overlay");
+            document.querySelector("#bannerandheader").style.display = "none";
 
             animatedScrollTo(0, {
                 speed: 500,

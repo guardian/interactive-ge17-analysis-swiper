@@ -23,7 +23,7 @@ let width = document.querySelector(".interactive-atom").clientWidth;
 let isMobile = width < 980;
 let breakpoint = (width < 355) ? "300" : "355";
 
-let vh = $('.swiper-container').getBoundingClientRect().top - 1;
+let vh = $('.swiper-container').getBoundingClientRect().top;
 
 let pastFirst = false;
 

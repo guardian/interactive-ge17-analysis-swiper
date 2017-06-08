@@ -12,7 +12,9 @@ if (!window.Promise) window.Promise = Promise
 let isAndroidApp = (window.location.origin === "file://" && /(android)/i.test(navigator.userAgent)) ? true : false;
 let isiOSApp = document.body.classList.contains("ios");
 
-let recentlyGoneUp = false
+let recentlyGoneUp = false;
+
+let first = true;
 
 var minimalUIChecks = 0;
 
@@ -23,14 +25,17 @@ let width = document.querySelector(".interactive-atom").clientWidth;
 let isMobile = width < 740;
 let breakpoint = (width < 355) ? "300" : "355";
 
+let swipers = [];
+
 let vh = $('.swiper-container').getBoundingClientRect().top;
 
 let pastFirst = false;
 
+var analytics = tracker();
+
 function initSwiper() {
     var swipers = [];
     var cardStacks = document.querySelectorAll('.swiper-container--horizontal');
-    var analytics = tracker();
 
     var swiperVertical = new Swiper(document.querySelector(".swiper-container--vertical"), {
         paginationClickable: true,
@@ -43,7 +48,15 @@ function initSwiper() {
         autoHeight: true
     }).on("onSlideChangeStart", (swipe) => {
         let verticali = swiperVertical.snapIndex + 1;
-        analytics.registerEvent('analysis_card_view', verticali);
+
+        let horizontali;
+        if(swipers[swiperVertical.snapIndex]) {
+            horizontali = swipers[swiperVertical.snapIndex].snapIndex + 1;
+        } else {
+            horizontali =  1;
+        }
+
+        analytics.registerEvent('analysis_card_view', verticali + "_" + horizontali);
     });
 
     for (var s = 0; s < cardStacks.length; s++) {
@@ -101,6 +114,8 @@ function initSwiper() {
 
                 });
             });
+
+        swipers.push(swiper);
     }
 
     loadGraphics(swiperVertical);
@@ -173,7 +188,7 @@ document.addEventListener('touchend', (e) => {
     // if (isAndroidApp && window.GuardianJSInterface.registerRelatedCardsTouch) {
     //     window.GuardianJSInterface.registerRelatedCardsTouch(false);
     // }
-
+    console.log(window.scrollY);
     if (!pastFirst && window.scrollY > 60 && isMobile) {
         vh = window.scrollY + $('.swiper-container').getBoundingClientRect().top
         doTheScroll();
@@ -215,6 +230,11 @@ function doTheScroll() {
                     minDuration: 200,
                     maxDuration: 750
                 });
+
+                if(first) {
+                    first = false;
+                    analytics.registerEvent('analysis_card_view', "1_1");
+                }
 
                 // do it again just in case it's slightly off :) 
                 setTimeout(() => {

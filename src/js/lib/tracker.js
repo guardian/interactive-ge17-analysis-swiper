@@ -31,6 +31,7 @@ export default function tracker(){
 
       }
 
+      // console.log(e, data);
       w.ga("send", "event", "interactives", e, 'swipe_' + data);
     }
   }

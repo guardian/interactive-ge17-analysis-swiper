@@ -38,7 +38,7 @@ function initSwiper() {
         slidesPerView: 1,
         spaceBetween: 0,
         pagination: ".ge-pagination",
-        paginationClickable : false,
+        paginationClickable: false,
         direction: "vertical",
         autoHeight: true
     }).on("onSlideChangeStart", (swipe) => {
@@ -70,12 +70,11 @@ function initSwiper() {
 
                 console.log(currentSwiper.snapIndex)
 
-                if (el && currentSwiper.snapIndex !== currentSwiper.slides.length - 1
-                    && currentSwiper.snapIndex !== 0) {
+                if (el && currentSwiper.snapIndex !== currentSwiper.slides.length - 1 && currentSwiper.snapIndex !== 0) {
 
                     el.classList.add('after-el--show')
-                 
-                } else if(el) {
+
+                } else if (el) {
                     el.classList.remove('after-el--show')
                 }
             })
@@ -84,18 +83,20 @@ function initSwiper() {
                 let horizontali = swipe.snapIndex + 1;
                 analytics.registerEvent('analysis_card_view', verticali + "_" + horizontali);
 
-                let newAnnotation = document.querySelector(".annotation-layer[data-graphic=" + swipe.slides[swipe.snapIndex].getAttribute("data-graphic") + "]")
-                let annotations = document.querySelectorAll(".swiper-slide-active .annotation-layer");
+                window.requestAnimationFrame(() => {
+                    let newAnnotation = document.querySelector(".annotation-layer[data-graphic=" + swipe.slides[swipe.snapIndex].getAttribute("data-graphic") + "]")
+                    let annotations = document.querySelectorAll(".swiper-slide-active .annotation-layer");
 
-                for (var i = 0; i < annotations.length; i++) {
-                    if (annotations[i]) {
-                        annotations[i].style.opacity = "0";
+                    for (var i = 0; i < annotations.length; i++) {
+                        if (annotations[i]) {
+                            annotations[i].style.opacity = "0";
+                        }
                     }
-                }
 
-                if (newAnnotation) {
-                    newAnnotation.style.opacity = "1";
-                }
+                    if (newAnnotation) {
+                        newAnnotation.style.opacity = "1";
+                    }
+                });
             });
     }
 
@@ -166,11 +167,11 @@ function addSomePadding() {
 }
 
 document.addEventListener('touchend', (e) => {
-    // if (isAndroidApp && window.GuardianJSInterface.registerRelatedCardsTouch) {
-    //     window.GuardianJSInterface.registerRelatedCardsTouch(false);
-    // }
+    if (isAndroidApp && window.GuardianJSInterface.registerRelatedCardsTouch) {
+        window.GuardianJSInterface.registerRelatedCardsTouch(false);
+    }
 
-    if (!pastFirst && window.scrollY > 40) {
+    if (!pastFirst && window.scrollY > 60) {
         vh = window.scrollY + $('.swiper-container').getBoundingClientRect().top
         doTheScroll();
     }
@@ -225,7 +226,7 @@ function doTheScroll() {
                         maxDuration: 750
                     });
 
-                    let savedHeight = (isiOSApp) ?  window.innerHeight : $('.swiper-container').clientHeight;
+                    let savedHeight = (isiOSApp) ? window.innerHeight : $('.swiper-container').clientHeight;
 
                     checkIfMinimalUI(savedHeight);
                 }, 1000);
@@ -237,7 +238,7 @@ function doTheScroll() {
 
 }
 
-setInterval( () => recentlyGoneUp = false, 2000)
+setInterval(() => recentlyGoneUp = false, 2000)
 
 
 function checkIfMinimalUI(savedHeight) {

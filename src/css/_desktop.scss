@@ -142,7 +142,7 @@
 		top: 12px;
 		z-index: 999;
 		@include fs-headline(2);
-		font-weight: 500;
+		// font-weight: 500;
 		line-height:24px;
 		box-sizing: border-box;
 		width: 100%;
@@ -162,7 +162,10 @@
 
 	h3 {
 		@include fs-header(2);
-		font-weight: 500;
+		font-size: 26px;
+	    line-height: 32px;
+	    font-weight: 400;
+	    padding-top: 12px;
 	}
 }
 

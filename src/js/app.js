@@ -53,17 +53,17 @@ function initSwiper() {
                 centeredSlides: true,
                 autoHeight: true
             })
-            .on('onSlideChangeStart', function(currentSwiper, e) {
+            .on('onTouchStart', () => {
                 if (isAndroidApp && window.GuardianJSInterface.registerRelatedCardsTouch) {
                     window.GuardianJSInterface.registerRelatedCardsTouch(true);
                 }
-
             })
-            .on('onSlideChangeEnd', function(currentSwiper, e) {
+            .on('onTouchEnd', () => {
                 if (isAndroidApp && window.GuardianJSInterface.registerRelatedCardsTouch) {
                     window.GuardianJSInterface.registerRelatedCardsTouch(false);
                 }
-
+            })
+            .on('onSlideChangeEnd', function(currentSwiper, e) {
                 const el = $('.swiper-slide-active .after-el')
 
                 if (el && currentSwiper.snapIndex === currentSwiper.slides.length - 1) {
@@ -150,7 +150,8 @@ function loadCardsMobile() {
 }
 
 function addSomePadding() {
-    let wastedHeight = Math.min(Math.round((window.innerHeight - 32) - breakpoint * (4 / 3)), 120);
+    let wastedHeight = Math.round(($('.swiper-container').clientHeight - 24) - breakpoint * (4 / 3));
+    console.log(wastedHeight);
     let stylesToAppend = `.background-slide { top: ${wastedHeight}px !important;} .annotation-layer { top: ${wastedHeight}px !important;}`;
 
     var ss = document.createElement("style");
@@ -219,7 +220,7 @@ function doTheScroll() {
                         maxDuration: 750
                     });
 
-                    let savedHeight = $('.swiper-container').clientHeight;
+                    let savedHeight = (isiOSApp) ?  window.innerHeight : $('.swiper-container').clientHeight;
 
                     checkIfMinimalUI(savedHeight);
                 }, 1000);
@@ -236,6 +237,7 @@ function checkIfMinimalUI(savedHeight) {
     setTimeout(() => {
         if (savedHeight !== window.innerHeight) {
             document.querySelector(".interactive-mobile__overlay").classList.add("show-overlay");
+
             animatedScrollTo(0, {
                 speed: 500,
                 minDuration: 200,

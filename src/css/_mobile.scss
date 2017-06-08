@@ -178,7 +178,7 @@
 
 .intro-card {
 
-	height: 100vh;
+	height: calc(100vh - 1px);
 	@include fs-headline(4);
 	line-height: 42px;
 	font-weight: 300;

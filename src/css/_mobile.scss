@@ -455,8 +455,9 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
-	color: #333;
-	background-color: #f6f6f6;
+	color: #fff;
+	background-color: #005689;
+	padding-top: 12px;
 
 	@include fs-headline(6);
 	font-weight: 300;
@@ -469,9 +470,9 @@
 
 		display: block;
 		position: absolute;
-		top: 60%;
+		top: 65%;
 		left: calc(50% - 30px);
-		background-color: #555;
+		background-color: #4bc6df;
 		width: 60px;
 		height: 60px;
 		//border-top-right-radius: 60px * 2;

@@ -1,12 +1,16 @@
 $lab: #E42729;
-$con: #005689;
+$con: #1A60A9;
 $ukip: #7D0068;
 $otherOne: #484f53;
+$brexit: #005689;
+$snp: #FDD806;
 
 $colors: 	lab $lab,
 			con $con,
 			ukip $ukip,
-			otherOne $otherOne;
+			otherOne $otherOne,
+            brexit $brexit
+            snp $snp;
 
 @import "mq";
 @import "fonts";

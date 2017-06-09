@@ -18,6 +18,8 @@ let first = true;
 
 var minimalUIChecks = 0;
 
+let scrollInProgress = false;
+
 const $ = sel => document.querySelector(sel)
 const $$ = sel => [].slice.apply(document.querySelectorAll(sel))
 
@@ -131,6 +133,8 @@ function initSwiper() {
         var network = shareEl.getAttribute('data-network');
         shareEl.addEventListener('click', () => shareFn(network));
     });
+
+    console.log('initéd swiper')
 }
 
 function loadGraphics(swiperVertical) {
@@ -265,19 +269,18 @@ function checkIfMinimalUI(savedHeight) {
     setTimeout(() => {
         if (savedHeight !== window.innerHeight && !recentlyGoneUp) {
 
-            console.log('about to go up')
-
             document.querySelector(".interactive-mobile__overlay").classList.add("show-overlay");
             document.querySelector("#bannerandheader").style.display = "none";
 
+            recentlyGoneUp = true;
+
             animatedScrollTo(0, {
-                speed: 500,
-                minDuration: 200,
+                speed: 750,
+                minDuration: 500,
                 maxDuration: 750
             });
 
             pastFirst = false;
-            recentlyGoneUp = true;
         }
         minimalUIChecks = minimalUIChecks - 1;
 

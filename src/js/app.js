@@ -5,12 +5,17 @@ import Promise from 'promise-polyfill'
 import share from './lib/share'
 import tracker from './lib/tracker'
 
-var shareFn = share('Interactive title', 'http://gu.com/p/URL', '#Interactive');
+var shareFn = share('How did Theresa May\'s gamble fail?', 'https://www.theguardian.com/politics/ng-interactive/2017/jun/09/theresa-may-election-gamble-fail-conservatives-majority-polls', '');
 
 if (!window.Promise) window.Promise = Promise
 
 let isAndroidApp = (window.location.origin === "file://" && /(android)/i.test(navigator.userAgent)) ? true : false;
 let isiOSApp = document.body.classList.contains("ios");
+
+function isFacebookApp() {
+    var ua = navigator.userAgent || navigator.vendor || window.opera;
+    return (ua.indexOf("FBAN") > -1) || (ua.indexOf("FBAV") > -1);
+}
 
 let recentlyGoneUp = false;
 
@@ -18,7 +23,7 @@ let first = true;
 
 var minimalUIChecks = 0;
 
-let scrollInProgress = false;
+var swipeDownToContinueCount = 0;
 
 const $ = sel => document.querySelector(sel)
 const $$ = sel => [].slice.apply(document.querySelectorAll(sel))
@@ -133,8 +138,6 @@ function initSwiper() {
         var network = shareEl.getAttribute('data-network');
         shareEl.addEventListener('click', () => shareFn(network));
     });
-
-    console.log('initéd swiper')
 }
 
 function loadGraphics(swiperVertical) {
@@ -179,7 +182,6 @@ function loadCardsMobile() {
 
 function addSomePadding() {
     let wastedHeight = Math.round(($('.swiper-container').clientHeight - 24) - breakpoint * (4 / 3));
-    console.log(wastedHeight);
     let stylesToAppend = `.background-slide { top: ${wastedHeight}px !important;} .annotation-layer { top: ${wastedHeight}px !important;}`;
 
     var ss = document.createElement("style");
@@ -192,7 +194,6 @@ document.addEventListener('touchend', (e) => {
     // if (isAndroidApp && window.GuardianJSInterface.registerRelatedCardsTouch) {
     //     window.GuardianJSInterface.registerRelatedCardsTouch(false);
     // }
-    console.log(window.scrollY);
     if (!pastFirst && window.scrollY > 60 && isMobile) {
         vh = window.scrollY + $('.swiper-container').getBoundingClientRect().top
         doTheScroll();
@@ -249,7 +250,7 @@ function doTheScroll() {
 
                     window.scrollTo(0, vh);
 
-                    let savedHeight = (isiOSApp) ? window.innerHeight : $('.swiper-container').clientHeight;
+                    let savedHeight = (isiOSApp || isFacebookApp()) ? window.innerHeight : $('.swiper-container').clientHeight;
 
                     checkIfMinimalUI(savedHeight);
                 }, 1000);
@@ -267,20 +268,20 @@ setInterval(() => recentlyGoneUp = false, 2000)
 function checkIfMinimalUI(savedHeight) {
     minimalUIChecks++;
     setTimeout(() => {
-        if (savedHeight !== window.innerHeight && !recentlyGoneUp) {
+        if (swipeDownToContinueCount < 3 && savedHeight !== window.innerHeight && !recentlyGoneUp) {
 
             document.querySelector(".interactive-mobile__overlay").classList.add("show-overlay");
             document.querySelector("#bannerandheader").style.display = "none";
 
-            recentlyGoneUp = true;
-
             animatedScrollTo(0, {
-                speed: 750,
-                minDuration: 500,
+                speed: 500,
+                minDuration: 200,
                 maxDuration: 750
             });
 
+            swipeDownToContinueCount++;
             pastFirst = false;
+            recentlyGoneUp = true;
         }
         minimalUIChecks = minimalUIChecks - 1;
 

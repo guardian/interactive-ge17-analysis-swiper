@@ -3,10 +3,10 @@ const facebookBaseUrl = 'https://www.facebook.com/dialog/feed?display=popup&app_
 const googleBaseUrl = 'https://plus.google.com/share?url=';
 
 export default function share(title, shareURL, fbImg, twImg, hashTag) {
-    var twImgText = twImg ? ` ${twImg.trim()} ` : ' ';
+    var twImgText = twImg ? ` ${twImg.trim()} ` : '';
     var fbImgQry = fbImg ? `&picture=${encodeURIComponent(fbImg)}` : '';
     return function (network, extra='') {
-        var twitterMessage = `${extra}${title}${twImgText}${hashTag}`;
+        var twitterMessage = `${extra}${title}${twImgText}`;
         var shareWindow;
 
         if (network === 'twitter') {
